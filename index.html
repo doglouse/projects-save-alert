@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Project Details — Update Banner Prototype</title>
+<!-- Fonts: Roboto (chrome/labels), Roboto Flex (avatars, counts, chips), Inter (modal titles) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500&family=Roboto+Flex:wght@400;600;700&family=Roboto:wght@400;500&display=swap">
+<style>
+/* ---------- Prime Admin 3 design system (only the tokens/classes this page uses) ---------- */
+:root {
+  --pa-primary:        rgb(25, 118, 210);
+  --pa-primary-700:    rgb(17,  71, 161);
+  --pa-primary-050:    rgb(238, 245, 252);
+  --pa-primary-12a:    rgba(25, 118, 210, 0.12);
+  --pa-primary-04a:    rgba(25, 118, 210, 0.04);
+  --pa-aqua-500:       rgb(  0, 173, 238);
+  --pa-ink:            rgb( 33,  33,  33);
+  --pa-ink-2:          rgb( 66,  66,  66);
+  --pa-ink-3:          rgb(102, 102, 102);
+  --pa-ink-4:          rgb(113, 113, 113);
+  --pa-ink-6:          rgb(137, 147, 158);
+  --pa-ink-7:          rgb(158, 158, 158);
+  --pa-paper:          rgb(255, 255, 255);
+  --pa-band:           rgb(240, 240, 240);
+  --pa-line:           rgb(238, 238, 238);
+  --pa-line-2:         rgb(224, 224, 224);
+  --pa-divider:        rgba(0, 0, 0, 0.12);
+  --pa-rule:           rgba(0, 0, 0, 0.60);
+  --pa-sidebar-bg:     rgb( 32,  32,  32);
+  --pa-sidebar-active: rgb( 62,  62,  62);
+  --pa-avatar-green:   rgb( 76, 175,  80);
+  --pa-field-line:     rgba(0, 0, 0, 0.42);
+  --pa-field-focus:    rgb(0, 0, 0);
+  --pa-success:        rgb( 46, 125,  50);
+  --pa-success-bg:     rgb(232, 245, 233);
+  --pa-warning:        rgb(233, 143,  40);
+  --pa-warning-bg:     rgb(255, 244, 229);
+  --pa-error:          rgb(211,  47,  47);
+  --pa-error-bg:       rgb(253, 237, 237);
+  --pa-font-sans:       "Roboto", system-ui, sans-serif;
+  --pa-font-display:    "Roboto Flex", "Roboto", system-ui, sans-serif;
+  --pa-font-modal:      "Inter", "Roboto", system-ui, sans-serif;
+  --pa-radius-xs:    2px;
+  --pa-radius-sm:    4px;
+  --pa-radius-lg:    8px;
+  --pa-radius-pill: 16px;
+  --pa-elev-1: 0 1px 2px 0 rgba(0,0,0,0.05), 0 1px 1px -1px rgba(0,0,0,0.05);
+  --pa-elev-2: 0 1px 5px 0 rgba(0,0,0,0.12),
+  0 2px 2px 0 rgba(0,0,0,0.14),
+  0 3px 1px -2px rgba(0,0,0,0.20);
+  --pa-elev-card: 0 10px 13px -5px rgba(0,0,0,0.05),
+  0 4px 5px -6px rgba(0,0,0,0.05);
+  --pa-elev-raised: 0 20px 25px -5px rgba(0,0,0,0.10),
+  0 8px 10px -6px rgba(0,0,0,0.10);
+  --pa-elev-modal: 0 9px 46px 8px rgba(0,0,0,0.12),
+  0 24px 38px 3px rgba(0,0,0,0.14),
+  0 11px 15px -7px rgba(0,0,0,0.20);
+  --pa-s-1:  4px;
+  --pa-s-2:  8px;
+  --pa-s-3: 12px;
+  --pa-s-4: 16px;
+  --pa-s-5: 20px;
+  --pa-s-6: 24px;
+  --pa-s-8: 32px;
+  --pa-s-10: 40px;
+  --pa-s-15: 60px;
+}
+.pa-page-title {
+  font-family: var(--pa-font-sans);
+  font-weight: 400;
+  font-size: 26px;
+  line-height: 34px;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+  color: var(--pa-primary);
+  margin: 0;
+}
+.pa-screen-title {
+  font-family: var(--pa-font-sans);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 30px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--pa-ink);
+  margin: 0;
+}
+.pa-rail-title {
+  font-family: var(--pa-font-sans);
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 26px;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+  color: var(--pa-ink);
+  margin: 0;
+}
+.pa-modal-title {
+  font-family: var(--pa-font-modal);
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--pa-ink);
+  margin: 0;
+}
+.pa-helper {
+  font-family: var(--pa-font-sans); font-size: 12px; line-height: 18px; color: var(--pa-ink-3);
+}
+.pa-eyebrow {
+  font-family: var(--pa-font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pa-primary);
+}
+.pa-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: var(--pa-radius-sm);
+  border: none;
+  font-family: var(--pa-font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 100%;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  isolation: isolate;
+  transition: background 150ms cubic-bezier(.4,0,.2,1), box-shadow 150ms cubic-bezier(.4,0,.2,1);
+}
+.pa-btn::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; background: transparent; pointer-events: none; z-index: 1;
+}
+.pa-btn > * {
+  position: relative; z-index: 2;
+}
+.pa-btn--primary {
+  background: var(--pa-primary); color: #fff; box-shadow: var(--pa-elev-2);
+}
+.pa-btn--primary:hover::after {
+  background: rgba(255,255,255,0.08);
+}
+.pa-btn--primary:active::after {
+  background: rgba(0,0,0,0.24);
+}
+.pa-btn--secondary {
+  background: #fff; color: var(--pa-primary); border: 1px solid var(--pa-primary);
+}
+.pa-btn--secondary:hover::after {
+  background: var(--pa-primary-04a);
+}
+.pa-btn--secondary:active::after {
+  background: rgba(25,118,210,0.24);
+}
+.pa-btn--secondary-grey {
+  background: #fff; color: var(--pa-ink-2); border: 1px solid var(--pa-ink-7);
+}
+.pa-btn--secondary-grey:hover::after {
+  background: rgba(33,33,33,0.04);
+}
+.pa-btn--secondary-grey:active::after {
+  background: rgba(33,33,33,0.24);
+}
+.pa-btn--danger-outline {
+  background: #fff; color: var(--pa-error); border: 1px solid var(--pa-error);
+}
+.pa-btn--danger-outline:hover::after {
+  background: rgba(211,47,47,0.06);
+}
+.pa-btn--danger {
+  background: var(--pa-error); color: #fff; box-shadow: var(--pa-elev-2);
+}
+.pa-btn--danger:hover::after {
+  background: rgba(255,255,255,0.08);
+}
+.pa-btn[disabled] {
+  opacity: 0.3; pointer-events: none; box-shadow: none;
+}
+a.pa-btn,
+a.pa-btn:hover {
+  text-decoration: none;
+}
+a.pa-btn--primary,
+a.pa-btn--primary:hover,
+a.pa-btn--danger,
+a.pa-btn--danger:hover {
+  color: #fff;
+}
+a.pa-btn--secondary-grey,
+a.pa-btn--secondary-grey:hover {
+  color: var(--pa-ink-2);
+}
+.pa-btn-rail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  background: var(--pa-aqua-500);
+  color: #fff;
+  border: none;
+  border-radius: var(--pa-radius-sm);
+  padding: 11px 14px;
+  font-family: var(--pa-font-sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: var(--pa-elev-2);
+}
+.pa-btn-rail:hover {
+  filter: brightness(1.06);
+}
+.pa-btn-rail i {
+  font-size: 16px;
+}
+.pa-icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pa-ink-2);
+  transition: background 150ms cubic-bezier(.4,0,.2,1);
+}
+.pa-icon-btn i {
+  font-size: 19px;
+}
+.pa-icon-btn:hover {
+  background: rgba(33,33,33,0.06);
+}
+.pa-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: var(--pa-radius-pill);
+  font-family: var(--pa-font-display);
+  font-weight: 700;
+  font-size: 10.8px;
+  line-height: 16.2px;
+  text-transform: uppercase;
+  background: var(--pa-line-2);
+  color: var(--pa-ink);
+  border: none;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  isolation: isolate;
+}
+.pa-chip::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+}
+.pa-chip > * {
+  position: relative; z-index: 2;
+}
+.pa-chip--selected {
+  background: var(--pa-primary-12a); color: var(--pa-primary);
+}
+.pa-chip:hover.pa-chip--selected::after {
+  background: var(--pa-primary-04a);
+}
+.pa-chip:hover:not(.pa-chip--selected)::after {
+  background: rgba(33,33,33,0.04);
+}
+.pa-chip[disabled] {
+  opacity: 0.3; pointer-events: none;
+}
+.avatar {
+  width: 32px; height: 32px; border-radius: 50%; background: var(--pa-avatar-green); color: #fff; display: inline-flex; align-items: center; justify-content: center; font-family: var(--pa-font-sans); font-weight: 500; font-size: 12px; flex: 0 0 auto;
+}
+.search {
+  display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 12px; background: #fff; border: 1px solid var(--pa-divider); border-radius: var(--pa-radius-sm); width: 280px; box-sizing: border-box;
+}
+.search input {
+  border: none; outline: none; background: transparent; font-family: var(--pa-font-display); font-size: 13px; flex: 1; min-width: 0; color: var(--pa-ink);
+}
+.search input::placeholder {
+  color: var(--pa-ink-6);
+}
+.pa-card {
+  background: #fff; border: 1px solid var(--pa-divider); border-radius: var(--pa-radius-sm); box-shadow: var(--pa-elev-1);
+}
+.pa-card--form {
+  box-shadow: var(--pa-elev-card);
+}
+.pa-band {
+  background: var(--pa-band);
+  padding: 13px 32px;
+  font-family: var(--pa-font-sans);
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--pa-ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.pa-card__body {
+  padding: 26px 32px 28px; display: flex; flex-direction: column; gap: 24px;
+}
+.pa-rules {
+  background: var(--pa-primary-050); border-radius: var(--pa-radius-sm); padding: 16px 18px;
+}
+.pa-rules ul {
+  margin: 8px 0 0; padding-left: 18px; font-family: var(--pa-font-sans); font-size: 12.5px; line-height: 19px; color: var(--pa-ink-2);
+}
+.pa-table {
+  border: 1px solid var(--pa-divider); border-radius: var(--pa-radius-sm); overflow: hidden; font-family: var(--pa-font-sans);
+}
+.pa-table__head,
+.pa-table__row {
+  display: grid; align-items: center;
+}
+.pa-table__head {
+  background: var(--pa-band); font-size: 12px; font-weight: 500; color: var(--pa-ink);
+}
+.pa-table__head > * {
+  padding: 11px 16px; border-right: 1px solid var(--pa-divider);
+}
+.pa-table__head > *:last-child {
+  border-right: none;
+}
+.pa-table__row {
+  border-top: 1px solid var(--pa-line); font-size: 13px;
+}
+.pa-table__row > * {
+  padding: 12px 16px; border-right: 1px solid var(--pa-line);
+}
+.pa-table__row > *:last-child {
+  border-right: none;
+}
+.pa-table__row:hover {
+  background: var(--pa-primary-04a);
+}
+.topbar {
+  height: 56px; background: #fff; border-bottom: 1px solid var(--pa-divider); display: flex; align-items: center; padding: 0 24px; gap: 16px;
+}
+.topbar__btn {
+  width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: var(--pa-ink-2); cursor: pointer; border: none; background: transparent;
+}
+.topbar__btn:hover {
+  background: rgba(0,0,0,0.04);
+}
+.sb {
+  width: 230px; flex-shrink: 0; background: var(--pa-sidebar-bg); color: #fff; font-family: var(--pa-font-sans); display: flex; flex-direction: column;
+}
+.sb__head {
+  padding: 18px 14px; display: flex; align-items: center; justify-content: space-between;
+}
+.sb__collapse {
+  color: rgba(255,255,255,0.6); cursor: pointer;
+}
+.sb__section {
+  padding: 4px 0;
+}
+.sb__item {
+  display: flex; align-items: center; gap: 14px; padding: 12px 18px; font-size: 14px; color: rgba(255,255,255,0.9); cursor: pointer; user-select: none;
+}
+.sb__item i {
+  font-size: 20px;
+}
+.sb__item__chev {
+  margin-left: auto; font-size: 18px; opacity: 0.6;
+}
+.sb__item--active {
+  background: var(--pa-sidebar-active);
+}
+.sb__item:hover:not(.sb__item--active) {
+  background: rgba(255,255,255,0.06);
+}
+.sb__sub {
+  padding: 2px 0 8px;
+}
+.sb__sub-item {
+  display: flex; padding: 8px 18px 8px 54px; font-size: 13px; color: rgba(255,255,255,0.72); cursor: pointer;
+}
+.sb__sub-item--active {
+  background: var(--pa-sidebar-active); color: #fff;
+}
+.sb__sub-item:hover:not(.sb__sub-item--active) {
+  color: #fff;
+}
+.pa-tabs {
+  display: flex; align-items: stretch; height: 48px; background: var(--pa-primary); color: #fff;
+}
+.pa-tabs__btn {
+  flex: 1;
+  height: 100%;
+  padding: 0 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--pa-font-sans);
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.pa-tabs__btn--active {
+  background: var(--pa-primary-700);
+}
+.pa-tabs__btn:hover:not(.pa-tabs__btn--active) {
+  background: rgba(255,255,255,0.06);
+}
+.pa-switcher {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  background: var(--pa-band);
+  border-radius: 999px;
+  width: fit-content;
+  justify-self: start;
+  align-self: start;
+  isolation: isolate;
+}
+.pa-switcher__btn {
+  appearance: none;
+  border: none;
+  background: transparent;
+  height: 30px;
+  padding: 0 18px;
+  border-radius: 999px;
+  font-family: var(--pa-font-display);
+  font-weight: 600;
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--pa-ink-4);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 150ms cubic-bezier(.4,0,.2,1), color 150ms cubic-bezier(.4,0,.2,1);
+}
+.pa-switcher__btn:hover:not(.pa-switcher__btn--active) {
+  background: rgba(33,33,33,0.05); color: var(--pa-ink-2);
+}
+.pa-switcher__btn:focus-visible {
+  outline: 2px solid var(--pa-ink); outline-offset: 1px;
+}
+.pa-switcher__btn[disabled] {
+  opacity: 0.35; pointer-events: none;
+}
+.pa-switcher--sm {
+  padding: 2px;
+}
+.pa-switcher--sm .pa-switcher__btn {
+  height: 26px; padding: 0 14px; font-size: 10.8px;
+}
+.pa-switcher--blue .pa-switcher__btn--active {
+  background: var(--pa-primary); color: #fff;
+}
+.pa-switcher--blue .pa-switcher__btn--active:hover {
+  background: var(--pa-primary-700);
+}
+.vf {
+  position: relative;
+  padding-top: 18px;
+  font-family: var(--pa-font-sans);
+  color: var(--pa-ink);
+}
+.vf__input,
+.vf__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  background: transparent;
+  padding: 4px 0 6px;
+  font: inherit;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--pa-ink);
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+  transition: border-color 200ms cubic-bezier(.4, 0, .2, 1);
+}
+.vf__textarea {
+  resize: vertical;
+  min-height: 80px;
+  font-family: inherit;
+}
+.vf__input::placeholder,
+.vf__textarea::placeholder {
+  color: rgba(0, 0, 0, 0.38);
+}
+.vf__input:placeholder-shown:not(:focus)::placeholder,
+.vf__textarea:placeholder-shown:not(:focus)::placeholder {
+  color: transparent;
+}
+.vf__label {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  font-size: 14px;
+  line-height: 20px;
+  color: rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+  transform-origin: top left;
+  transition: transform 200ms cubic-bezier(.4, 0, .2, 1),
+  color 200ms cubic-bezier(.4, 0, .2, 1);
+}
+.vf__input:focus ~ .vf__label,
+.vf__input:not(:placeholder-shown) ~ .vf__label,
+.vf__textarea:focus ~ .vf__label,
+.vf__textarea:not(:placeholder-shown) ~ .vf__label {
+  transform: translateY(-18px) scale(0.857);
+}
+.vf__input:focus,
+.vf__textarea:focus {
+  border-bottom: 2px solid #000;
+  padding-bottom: 5px;
+  caret-color: #000;
+}
+.vf__input:focus ~ .vf__label,
+.vf__textarea:focus ~ .vf__label {
+  transform: translateY(-18px) scale(0.857);
+  color: #000;
+}
+.vf__messages {
+  min-height: 14px;
+  padding: 4px 0 0;
+  font-size: 12px;
+  line-height: 12px;
+  color: rgba(0, 0, 0, 0.6);
+}
+.vsel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+  font-family: var(--pa-font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--pa-ink);
+  cursor: pointer;
+  user-select: none;
+}
+.vsel input {
+  position: absolute; opacity: 0; pointer-events: none;
+}
+.vsel__box {
+  position: relative;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, 0.6);
+  transition: color 150ms cubic-bezier(.4, 0, .2, 1);
+}
+.vsel__box i {
+  font-size: 20px;
+}
+.vsel:hover .vsel__box {
+  color: #000;
+}
+.vsel input:checked + .vsel__box {
+  color: #000;
+}
+.vsel input:disabled ~ .vsel__box {
+  color: rgba(0, 0, 0, 0.26) !important;
+}
+.vsel input:disabled ~ .vsel__label {
+  color: rgba(0, 0, 0, 0.38); pointer-events: none;
+}
+
+/* ---------- Prototype page ---------- */
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff}
+body{font-family:var(--pa-font-sans);color:var(--pa-ink);-webkit-font-smoothing:antialiased}
+a{color:var(--pa-primary);text-decoration:none}
+a:hover{color:var(--pa-primary-700);text-decoration:underline}
+button,input,textarea{font-family:inherit}
+[hidden]{display:none !important}
+
+/* Icons: inline MDI paths, sized by font-size like the icon font */
+.ic{display:inline-flex;width:1em;height:1em;flex:none;line-height:1}
+.ic svg{width:100%;height:100%;fill:currentColor;display:block}
+
+/* Read-only record fields: dashed underline */
+.vf__input:disabled,.vf__textarea:disabled{color:var(--pa-ink);border-bottom-style:dashed;border-bottom-color:rgba(0,0,0,0.22);pointer-events:none;opacity:1}
+.vf__input:disabled ~ .vf__label,.vf__textarea:disabled ~ .vf__label{color:var(--pa-ink-3)}
+
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+@keyframes scrimIn{from{opacity:0}to{opacity:1}}
+@keyframes modalIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes toastUp{from{opacity:0;transform:translate(-50%,12px)}to{opacity:1;transform:translate(-50%,0)}}
+
+/* Chrome */
+.app{display:flex;min-height:100vh}
+.sb{min-height:100vh;flex:none}
+.wordmark{font-weight:500;font-size:20px;letter-spacing:1px;color:#fff}
+.wordmark span{color:var(--pa-aqua-500)}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{flex:none}
+.topbar .search{flex:1;max-width:660px;height:40px;width:auto}
+.search .ic{color:var(--pa-ink-6);font-size:18px}
+.topbar__btn .ic{font-size:22px;color:var(--pa-ink-3)}
+.spacer{flex:1}
+
+/* Page header */
+.page-head{flex:none;padding:18px 32px 14px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.page-actions{display:flex;align-items:center;gap:10px}
+.presence{display:inline-flex;align-items:center;gap:10px;height:36px;padding:0 8px 0 5px;margin-right:12px;font-size:13px;color:var(--pa-ink-2);white-space:nowrap}
+.presence > .ic{font-size:18px;color:var(--pa-ink-3)}
+.av-stack{display:flex;flex:none}
+.av{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;color:#fff;border:2px solid #fff;font-family:var(--pa-font-display);font-size:10px;font-weight:600;flex:none}
+.av + .av{margin-left:-7px}
+.av--sm{width:24px;height:24px}
+.av--md{width:28px;height:28px}
+.av--mw{background:var(--pa-primary)}
+.av--pr{background:#4FA3E8}
+.av--tr{background:var(--pa-primary-700)}
+.av--kb{background:var(--pa-ink-2)}
+.edit-actions{display:flex;align-items:center;gap:10px}
+.save-wrap{position:relative}
+.pa-btn .ic-chev{font-size:20px;margin-left:2px}
+
+/* Save split menu */
+.menu-scrim{position:fixed;inset:0;z-index:40}
+.save-menu{position:absolute;right:0;top:calc(100% + 8px);z-index:41;width:340px;background:#fff;border-radius:var(--pa-radius-sm);box-shadow:var(--pa-elev-raised);overflow:hidden;animation:modalIn 150ms cubic-bezier(.4,0,.2,1)}
+.menu-item{display:grid;grid-template-columns:24px 1fr;gap:16px;align-items:start;width:100%;text-align:left;border:none;background:#fff;cursor:pointer;padding:16px 20px;transition:background 150ms cubic-bezier(.4,0,.2,1)}
+.menu-item:hover{background:var(--pa-primary-04a)}
+.menu-item > .ic{font-size:22px;color:var(--pa-ink-2)}
+.menu-item--notify > .ic{color:var(--pa-primary)}
+.menu-item__text{display:flex;flex-direction:column;gap:4px}
+.menu-item__title{font-size:15px;color:var(--pa-ink)}
+.menu-item__desc{font-size:13px;color:var(--pa-ink-3)}
+.menu-divider{height:1px;background:var(--pa-divider)}
+
+/* Tabs */
+.pa-tabs{flex:none}
+.pa-tabs__btn{gap:8px}
+.tab-count{display:inline-flex;align-items:center;justify-content:center;min-width:16px;height:16px;padding:0 4px;border-radius:8px;background:#fff;color:var(--pa-primary-700);font-family:var(--pa-font-display);font-size:11px;font-weight:600;line-height:1}
+
+/* Update banner */
+.banner{flex:none;display:flex;align-items:center;gap:16px;padding:12px 24px 12px 32px;background:var(--pa-primary-050);border-bottom:1px solid var(--pa-primary-12a);animation:slideDown 300ms cubic-bezier(.4,0,.2,1)}
+.banner--warn{background:var(--pa-warning-bg);border-bottom-color:rgba(233,143,40,0.28)}
+.banner__icon{font-size:22px;color:var(--pa-primary)}
+.banner--warn .banner__icon{font-size:30px;color:var(--pa-warning)}
+.banner .av{width:28px;height:28px}
+.banner__text{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px}
+.banner__msg{font-size:14px;line-height:20px;color:var(--pa-ink)}
+.banner__msg strong{font-weight:500}
+.banner__sub{font-size:13px;line-height:18px;color:var(--pa-ink-2)}
+
+/* Content */
+.content{flex:1;padding:24px 32px 34px}
+.pd-grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(240px,1fr);gap:32px;align-items:start}
+@media (max-width:1180px){.pd-grid{grid-template-columns:minmax(0,1fr)}}
+.col{min-width:0}
+.screen-head{display:flex;align-items:center;flex-wrap:wrap;gap:12px 16px;margin-bottom:18px}
+.tab-presence{display:inline-flex;align-items:center;gap:10px;height:30px;padding:0 12px 0 4px;border-radius:15px;background:var(--pa-primary-050);font-size:13px;color:var(--pa-ink-2);white-space:nowrap}
+.card{padding:0;overflow:hidden}
+.card + .card{margin-top:24px}
+.section{padding:22px 32px 26px;display:flex;flex-direction:column;gap:18px}
+.section--dates{padding:22px 32px 28px}
+.date-field{max-width:280px}
+.leads-grid{padding:24px 32px 30px;display:grid;grid-template-columns:1fr 1fr;gap:26px 40px;align-items:start}
+.hl{margin:0 -12px;padding:0 12px;border-radius:4px;background:transparent;transition:background 1200ms cubic-bezier(.4,0,.2,1)}
+.hl--on{background:var(--pa-primary-050);transition-duration:400ms}
+.rail{display:flex;flex-direction:column;gap:18px}
+a.pa-btn-rail,a.pa-btn-rail:hover{color:#fff;text-decoration:none}
+.footer{flex:none;border-top:1px solid var(--pa-divider);padding:22px 32px;text-align:center;font-size:13px;font-weight:500}
+
+/* Toast */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:80;display:flex;align-items:center;gap:10px;background:var(--pa-success-bg);border-left:4px solid var(--pa-success);border-radius:var(--pa-radius-sm);box-shadow:var(--pa-elev-raised);padding:12px 16px;font-size:13px;color:var(--pa-success);white-space:nowrap;animation:toastUp 220ms cubic-bezier(.4,0,.2,1)}
+.toast .ic{font-size:18px}
+
+/* Modals */
+.scrim{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;padding:24px;animation:scrimIn 200ms ease}
+.scrim--notify{z-index:60}
+.scrim--confirm{z-index:70}
+.modal{width:100%;background:#fff;border-radius:var(--pa-radius-lg);box-shadow:var(--pa-elev-modal);animation:modalIn 300ms cubic-bezier(.4,0,.2,1)}
+.modal--confirm{max-width:520px}
+.modal--notify{max-width:660px;max-height:calc(100vh - 48px);overflow-y:auto}
+.confirm__head{display:flex;align-items:center;gap:14px;padding:26px 28px 0}
+.confirm__head .ic{font-size:28px;color:var(--pa-warning)}
+.confirm__body{padding:14px 28px 26px;font-size:14px;line-height:22px;color:var(--pa-ink-2);text-wrap:pretty}
+.modal__actions{display:flex;justify-content:flex-end;gap:12px;padding:0 28px 24px}
+.notify__head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:26px 28px 0}
+.notify__titles{display:flex;flex-direction:column;gap:4px}
+.notify__sub{font-size:13px;color:var(--pa-ink-3)}
+.notify__body{padding:18px 28px 0;display:flex;flex-direction:column;gap:24px}
+.notify__group{display:flex;flex-direction:column;gap:12px}
+.notify__group--tight{gap:8px}
+.notify__group-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.notify__group-head a{font-size:13px;font-weight:500}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.pa-chip{gap:6px;line-height:1}
+.pa-chip .ic{font-size:14px}
+.lead-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px 24px}
+.lead{align-items:flex-start}
+.lead__label{display:flex;flex-direction:column}
+.notify__rule{display:flex;gap:10px;align-items:flex-start}
+.notify__rule .ic{font-size:18px;margin-top:1px;color:var(--pa-primary)}
+.notify__rule span{font-size:12.5px;line-height:19px;color:var(--pa-ink-2);text-wrap:pretty}
+.notify__foot{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:26px 28px 24px}
+.notify__btns{display:flex;gap:12px}
+
+/* Prototype controls (not part of the design) */
+.proto{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:12px;padding:10px 12px 10px 16px;background:#fff;border:1px solid var(--pa-divider);border-radius:var(--pa-radius-lg);box-shadow:var(--pa-elev-raised)}
+</style>
+</head>
+<body>
+<div class="app">
+  <nav class="sb">
+    <div class="sb__head">
+      <div class="wordmark">PRIME <span>ADMIN</span></div>
+      <i class="ic sb__collapse" data-icon="chevron-left"></i>
+    </div>
+    <div class="sb__section">
+      <div class="sb__item sb__item--active"><i class="ic" data-icon="account-box-outline"></i><span>Program Management</span><i class="ic sb__item__chev" data-icon="chevron-up"></i></div>
+      <div class="sb__sub">
+        <div class="sb__sub-item sb__sub-item--active">Projects</div>
+        <div class="sb__sub-item">Activities</div>
+      </div>
+    </div>
+    <div class="sb__section"><div class="sb__item"><i class="ic" data-icon="chart-line"></i><span>Marketing</span><i class="ic sb__item__chev" data-icon="chevron-down"></i></div></div>
+    <div class="sb__section"><div class="sb__item"><i class="ic" data-icon="poll"></i><span>Outcomes</span><i class="ic sb__item__chev" data-icon="chevron-down"></i></div></div>
+    <div class="sb__section"><div class="sb__item"><i class="ic" data-icon="chart-box-outline"></i><span>Reporting</span><i class="ic sb__item__chev" data-icon="chevron-down"></i></div></div>
+    <div class="sb__section"><div class="sb__item"><i class="ic" data-icon="tools"></i><span>Tools</span><i class="ic sb__item__chev" data-icon="chevron-down"></i></div></div>
+    <div class="sb__section"><div class="sb__item"><i class="ic" data-icon="account-multiple-outline"></i><span>User Manager</span><i class="ic sb__item__chev" data-icon="chevron-down"></i></div></div>
+  </nav>
+
+  <div class="main">
+    <header class="topbar">
+      <div class="search"><input placeholder="Search for [Project]"><i class="ic" data-icon="magnify"></i></div>
+      <button class="pa-btn pa-btn--primary"><i class="ic" data-icon="plus"></i><span>CREATE</span></button>
+      <div class="spacer"></div>
+      <button class="topbar__btn" title="Notifications"><i class="ic" data-icon="bell-outline"></i></button>
+      <div class="avatar" title="Douglas Benjamin">DB</div>
+    </header>
+
+    <div class="page-head">
+      <h1 class="pa-page-title">PROJECTS</h1>
+      <div class="page-actions">
+        <div class="presence">
+          <span class="av-stack">
+            <span class="av av--mw" title="Maya Whitfield">MW</span>
+            <span class="av av--pr" title="Priya Raman">PR</span>
+            <span class="av av--tr" title="Tom Reyes">TR</span>
+            <span class="av av--kb" title="Kim Bauer">KB</span>
+          </span>
+          <span>4 people here</span>
+          <i class="ic" data-icon="chevron-down"></i>
+        </div>
+        <button class="pa-btn pa-btn--secondary" id="btn-edit" data-action="edit"><i class="ic" data-icon="pencil-outline"></i><span>EDIT</span></button>
+        <div class="edit-actions" id="edit-actions" hidden>
+          <button class="pa-btn pa-btn--secondary-grey" data-action="cancel-edit"><span>CANCEL</span></button>
+          <div class="save-wrap">
+            <button class="pa-btn pa-btn--primary" data-action="toggle-menu" aria-haspopup="menu" aria-expanded="false" id="btn-save"><span>SAVE</span><i class="ic ic-chev" data-icon="chevron-down"></i></button>
+            <div class="menu-scrim" id="menu-scrim" data-action="close-menu" hidden></div>
+            <div class="save-menu" role="menu" id="save-menu" hidden>
+              <button class="menu-item" role="menuitem" data-action="quick-save">
+                <i class="ic" data-icon="content-save-outline"></i>
+                <span class="menu-item__text"><span class="menu-item__title">Quick Save</span><span class="menu-item__desc">Save changes silently to the change log.</span></span>
+              </button>
+              <div class="menu-divider"></div>
+              <button class="menu-item menu-item--notify" role="menuitem" data-action="save-notify-open">
+                <i class="ic" data-icon="bell-outline"></i>
+                <span class="menu-item__text"><span class="menu-item__title">Save &amp; Notify…</span><span class="menu-item__desc">Add notes and optionally select team members to alert about this update.</span></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pa-tabs">
+      <button class="pa-tabs__btn"><span>OVERVIEW</span></button>
+      <button class="pa-tabs__btn pa-tabs__btn--active"><span>DETAILS</span><span class="tab-count">2</span></button>
+      <button class="pa-tabs__btn"><span>PLANNING</span></button>
+      <button class="pa-tabs__btn"><span>FACULTY</span><span class="tab-count">1</span></button>
+      <button class="pa-tabs__btn"><span>FILES</span></button>
+      <button class="pa-tabs__btn"><span>ACTIVITIES</span><span class="tab-count">1</span></button>
+      <button class="pa-tabs__btn"><span>WORKFLOW</span></button>
+    </div>
+
+    <div class="banner" role="alert" id="banner">
+      <i class="ic banner__icon" id="banner-icon" data-icon="update"></i>
+      <span class="av-stack"><span class="av av--mw" title="Maya Whitfield">MW</span></span>
+      <div class="banner__text">
+        <div class="banner__msg"><strong>Maya Whitfield</strong> just updated this project.</div>
+        <div class="banner__sub" id="banner-sub" hidden>You have unsaved edits. Refreshing will discard them.</div>
+      </div>
+      <button class="pa-btn pa-btn--primary" id="btn-refresh" data-action="refresh"><i class="ic" data-icon="refresh"></i><span id="btn-refresh-label">REFRESH</span></button>
+      <button class="pa-icon-btn" title="Dismiss" data-action="dismiss"><i class="ic" data-icon="close"></i></button>
+    </div>
+
+    <div class="content">
+      <div class="pd-grid">
+        <div class="col">
+          <div class="screen-head">
+            <h2 class="pa-screen-title">PROJECT DETAILS (24268)</h2>
+            <div class="tab-presence" title="Maya Whitfield — editing, Priya Raman — viewing">
+              <span class="av-stack"><span class="av av--sm av--mw">MW</span><span class="av av--sm av--pr">PR</span></span>
+              <span>2 people on this tab</span>
+            </div>
+          </div>
+
+          <div class="pa-card pa-card--form card">
+            <div class="pa-card__body">
+              <div class="hl" data-hl>
+                <div class="vf">
+                  <textarea class="vf__textarea" id="f-title" data-field placeholder=" " rows="2" disabled></textarea>
+                  <span class="vf__label">Project Title</span>
+                </div>
+              </div>
+              <div class="hl" data-hl>
+                <div class="vf">
+                  <input class="vf__input" id="f-short" data-field placeholder=" " disabled>
+                  <span class="vf__label">Short Title</span>
+                </div>
+              </div>
+            </div>
+            <div class="pa-band"><span>SUPPORTERS</span></div>
+            <div class="section">
+              <div class="pa-table">
+                <div class="pa-table__head" style="grid-template-columns:1fr 2fr"><div>Name</div><div>Grant #</div></div>
+                <div class="pa-table__row" style="grid-template-columns:1fr 2fr"><div>Novartis</div><div>Novartis Pharmaceuticals Corporation (Grant ID# NGC53637)</div></div>
+              </div>
+              <div class="vf">
+                <textarea class="vf__textarea" placeholder=" " rows="2" disabled>Novartis Pharmaceuticals Corporation (Grant ID# NGC53637)</textarea>
+                <span class="vf__label">Grant ID/number(s)</span>
+                <div class="vf__messages">Populated from the grant numbers in the supporters table.</div>
+              </div>
+            </div>
+            <div class="pa-band"><span>IMPORTANT DATES</span></div>
+            <div class="section section--dates">
+              <div class="date-field">
+                <div class="vf">
+                  <input class="vf__input" data-field placeholder=" " value="mm/dd/yyyy" disabled>
+                  <span class="vf__label">Launch Date</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pa-card pa-card--form card">
+            <div class="pa-band"><span>PROJECT LEADS</span></div>
+            <div class="leads-grid">
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Kynlon Phillips" disabled><span class="vf__label">Clinical Lead</span></div>
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Matthew Philips" disabled><span class="vf__label">Creative Lead</span></div>
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Not assigned" disabled><span class="vf__label">Research Lead</span></div>
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Not assigned" disabled><span class="vf__label">Clinical Supervisor</span></div>
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Stephanie Yang" disabled><span class="vf__label">Operations Lead</span></div>
+              <div class="vf"><input class="vf__input" data-field placeholder=" " value="Emily Zyborowicz" disabled><span class="vf__label">Strategy Lead</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rail">
+          <div class="pa-rail-title">USEFUL LINKS</div>
+          <a class="pa-btn-rail" href="#"><i class="ic" data-icon="open-in-new"></i><span>PROJECT SURVEY</span></a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">1997-2026 PRIME Education, LLC</div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" hidden><i class="ic" data-icon="check-circle-outline"></i><span id="toast-msg"></span></div>
+
+<div class="scrim scrim--confirm" id="confirm" data-scrim="confirm" hidden>
+  <div class="modal modal--confirm" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-body">
+    <div class="confirm__head">
+      <i class="ic" data-icon="alert-outline"></i>
+      <h3 class="pa-modal-title" id="confirm-title">Overwrite Maya's Changes?</h3>
+    </div>
+    <div class="confirm__body" id="confirm-body">Maya Whitfield saved changes to this project while you were editing. Continuing will overwrite her work.</div>
+    <div class="modal__actions">
+      <button class="pa-btn pa-btn--danger-outline" data-action="confirm-overwrite"><span>OVERWRITE CHANGES</span></button>
+      <button class="pa-btn pa-btn--primary" data-action="confirm-cancel"><span>CANCEL</span></button>
+    </div>
+  </div>
+</div>
+
+<div class="scrim scrim--notify" id="notify" data-scrim="notify" hidden>
+  <div class="modal modal--notify" role="dialog" aria-modal="true" aria-labelledby="notify-title">
+    <div class="notify__head">
+      <div class="notify__titles">
+        <h3 class="pa-modal-title" id="notify-title">Save Changes</h3>
+        <div class="notify__sub">Details — 24268</div>
+      </div>
+      <button class="pa-icon-btn" title="Close" data-action="close-notify"><i class="ic" data-icon="close"></i></button>
+    </div>
+    <div class="notify__body">
+      <div class="vf">
+        <textarea class="vf__textarea" id="notify-notes" placeholder=" " rows="3"></textarea>
+        <span class="vf__label">Update Notes</span>
+        <div class="vf__messages">Optional. Saved to the change log and included in any notification.</div>
+      </div>
+      <div class="notify__group">
+        <div class="notify__group-head"><span class="pa-eyebrow">Distribution Lists</span><a href="#" data-action="all-lists" id="all-lists">Select all lists</a></div>
+        <div class="chips" id="dist-lists"></div>
+      </div>
+      <div class="notify__group notify__group--tight">
+        <div class="notify__group-head"><span class="pa-eyebrow">Project Leads</span><a href="#" data-action="all-leads" id="all-leads">Select all leads</a></div>
+        <div class="lead-grid" id="notify-leads"></div>
+      </div>
+      <div class="pa-rules notify__rule">
+        <i class="ic" data-icon="information-outline"></i>
+        <span>Notify only the people who need to act on this update. Every change is recorded in the change log whether or not you notify.</span>
+      </div>
+    </div>
+    <div class="notify__foot">
+      <span class="pa-helper" id="recipients">No notes · no one will be notified</span>
+      <div class="notify__btns">
+        <button class="pa-btn pa-btn--secondary-grey" data-action="close-notify"><span>CANCEL</span></button>
+        <button class="pa-btn pa-btn--primary" data-action="save-notify"><i class="ic" id="notify-btn-icon" data-icon="content-save-outline"></i><span id="notify-btn-label">SAVE</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Prototype controls — not part of the design -->
+<div class="proto" aria-label="Prototype controls">
+  <span class="pa-eyebrow">Prototype</span>
+  <div class="pa-switcher pa-switcher--blue pa-switcher--sm" role="group" aria-label="Mode">
+    <button class="pa-switcher__btn" data-mode="viewing">Viewing</button>
+    <button class="pa-switcher__btn" data-mode="editing">Editing</button>
+  </div>
+  <button class="pa-btn pa-btn--secondary" data-action="simulate"><i class="ic" data-icon="update"></i><span>SIMULATE UPDATE</span></button>
+</div>
+
+<script>
+(function () {
+  var ICONS = {
+    'chevron-left': 'M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z',
+    'account-box-outline': 'M19,19H5V5H19M19,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M16.5,16.25C16.5,14.75 13.5,14 12,14C10.5,14 7.5,14.75 7.5,16.25V17H16.5M12,12.25A2.25,2.25 0 0,0 14.25,10A2.25,2.25 0 0,0 12,7.75A2.25,2.25 0 0,0 9.75,10A2.25,2.25 0 0,0 12,12.25Z',
+    'chevron-up': 'M7.41,15.41L12,10.83L16.59,15.41L18,14L12,8L6,14L7.41,15.41Z',
+    'chevron-down': 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z',
+    'chart-line': 'M16,11.78L20.24,4.45L21.97,5.45L16.74,14.5L10.23,10.75L5.46,19H22V21H2V3H4V17.54L9.5,8L16,11.78Z',
+    'poll': 'M3,22V8H7V22H3M10,22V2H14V22H10M17,22V14H21V22H17Z',
+    'chart-box-outline': 'M9 17H7V10H9V17M13 17H11V7H13V17M17 17H15V13H17V17M19 19H5V5H19V19.1M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z',
+    'tools': 'M21.71 20.29L20.29 21.71A1 1 0 0 1 18.88 21.71L7 9.85A3.81 3.81 0 0 1 6 10A4 4 0 0 1 2.22 4.7L4.76 7.24L5.29 6.71L6.71 5.29L7.24 4.76L4.7 2.22A4 4 0 0 1 10 6A3.81 3.81 0 0 1 9.85 7L21.71 18.88A1 1 0 0 1 21.71 20.29M2.29 18.88A1 1 0 0 0 2.29 20.29L3.71 21.71A1 1 0 0 0 5.12 21.71L10.59 16.25L7.76 13.42M20 2L16 4V6L13.83 8.17L15.83 10.17L18 8H20L22 4Z',
+    'account-multiple-outline': 'M13.07 10.41A5 5 0 0 0 13.07 4.59A3.39 3.39 0 0 1 15 4A3.5 3.5 0 0 1 15 11A3.39 3.39 0 0 1 13.07 10.41M5.5 7.5A3.5 3.5 0 1 1 9 11A3.5 3.5 0 0 1 5.5 7.5M7.5 7.5A1.5 1.5 0 1 0 9 6A1.5 1.5 0 0 0 7.5 7.5M16 17V19H2V17S2 13 9 13 16 17 16 17M14 17C13.86 16.22 12.67 15 9 15S4.07 16.31 4 17M15.95 13A5.32 5.32 0 0 1 18 17V19H22V17S22 13.37 15.94 13Z',
+    'magnify': 'M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z',
+    'plus': 'M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z',
+    'bell-outline': 'M10 21H14C14 22.1 13.1 23 12 23S10 22.1 10 21M21 19V20H3V19L5 17V11C5 7.9 7 5.2 10 4.3V4C10 2.9 10.9 2 12 2S14 2.9 14 4V4.3C17 5.2 19 7.9 19 11V17L21 19M17 11C17 8.2 14.8 6 12 6S7 8.2 7 11V18H17V11Z',
+    'pencil-outline': 'M14.06,9L15,9.94L5.92,19H5V18.08L14.06,9M17.66,3C17.41,3 17.15,3.1 16.96,3.29L15.13,5.12L18.88,8.87L20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18.17,3.09 17.92,3 17.66,3M14.06,6.19L3,17.25V21H6.75L17.81,9.94L14.06,6.19Z',
+    'content-save-outline': 'M17 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V7L17 3M19 19H5V5H16.17L19 7.83V19M12 12C10.34 12 9 13.34 9 15S10.34 18 12 18 15 16.66 15 15 13.66 12 12 12M6 6H15V10H6V6Z',
+    'update': 'M21,10.12H14.22L16.96,7.3C14.23,4.6 9.81,4.5 7.08,7.2C4.35,9.91 4.35,14.28 7.08,17C9.81,19.7 14.23,19.7 16.96,17C18.32,15.65 19,14.08 19,12.1H21C21,14.08 20.12,16.65 18.36,18.39C14.85,21.87 9.15,21.87 5.64,18.39C2.14,14.92 2.11,9.28 5.62,5.81C9.13,2.34 14.76,2.34 18.27,5.81L21,3V10.12M12.5,8V12.25L16,14.33L15.28,15.54L11,13V8H12.5Z',
+    'alert-outline': 'M12,2L1,21H23M12,6L19.53,19H4.47M11,10V14H13V10M11,16V18H13V16',
+    'refresh': 'M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z',
+    'close': 'M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z',
+    'open-in-new': 'M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z',
+    'check-circle-outline': 'M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z',
+    'check': 'M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z',
+    'information-outline': 'M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z',
+    'send-outline': 'M4 6.03L11.5 9.25L4 8.25L4 6.03M11.5 14.75L4 17.97V15.75L11.5 14.75M2 3L2 10L17 12L2 14L2 21L23 12L2 3Z',
+    'checkbox-marked': 'M10,17L5,12L6.41,10.58L10,14.17L17.59,6.58L19,8M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3Z',
+    'checkbox-blank-outline': 'M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,5V19H5V5H19Z'
+  };
+  function svg(n) { return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="' + ICONS[n] + '"/></svg>'; }
+  function hydrate(root) {
+    root.querySelectorAll('[data-icon]').forEach(function (el) {
+      if (el.dataset.drawn !== el.dataset.icon) { el.innerHTML = svg(el.dataset.icon); el.dataset.drawn = el.dataset.icon; }
+    });
+  }
+
+  var VERSIONS = {
+    old: { title: 'Clinical Expert Exchange: Leveraging Novel Pathways to Optimize Complement Inhibitor Therapy in PNH', short: 'PNH Webinar Series' },
+    latest: { title: 'Clinical Expert Exchange: Leveraging Novel Pathways to Optimize Complement Inhibitor Therapy in Paroxysmal Nocturnal Hemoglobinuria', short: 'PNH Expert Exchange Series' }
+  };
+  var LISTS = ['Product & Tech', 'Marketing', 'Design & Multimedia', 'Program Management', 'Research', 'Scientific Affairs', 'Accreditation'];
+  var LEADS = [['Sara Atcheison', 'Clinical Lead'], ['Danny Velasquez', 'Creative Lead'], ['Christine Mangurio', 'Operations Lead'], ['Megan McLafferty', 'Strategy Lead']];
+
+  // banner: 'shown' | 'dismissed' | 'refreshed' | 'saved'
+  var S = { mode: 'viewing', banner: 'shown', version: 'old', hl: false, menu: false, confirm: null, notify: null, toast: null };
+  var timers = {};
+  function $(id) { return document.getElementById(id); }
+  function later(k, fn, ms) { clearTimeout(timers[k]); timers[k] = setTimeout(fn, ms); }
+  function set(p) { Object.assign(S, p); render(); }
+  function stale() { return S.banner === 'shown' || S.banner === 'dismissed'; }
+
+  function loadVersion() { $('f-title').value = VERSIONS[S.version].title; $('f-short').value = VERSIONS[S.version].short; }
+  function toast(msg) { set({ toast: msg }); later('toast', function () { set({ toast: null }); }, 4000); }
+
+  function refresh() {
+    S.version = 'latest'; loadVersion();
+    set({ mode: 'viewing', banner: 'refreshed', hl: true, menu: false });
+    later('hl', function () { set({ hl: false }); }, 4000);
+    toast("Refreshed — you're viewing the latest version.");
+  }
+  function commitSave(msg) {
+    set({ mode: 'viewing', banner: 'saved', confirm: null, notify: null, menu: false });
+    toast(msg);
+  }
+  function quickSave() { commitSave('Details saved to the change log.'); }
+  function openNotify() { $('notify-notes').value = ''; set({ confirm: null, menu: false, notify: { lists: [], leads: [] } }); }
+  function toggle(arr, v) { return arr.indexOf(v) > -1 ? arr.filter(function (x) { return x !== v; }) : arr.concat(v); }
+
+  function notifySummary() {
+    var n = S.notify, parts = [];
+    if (n.lists.length) parts.push(n.lists.length + (n.lists.length === 1 ? ' list' : ' lists'));
+    if (n.leads.length) parts.push(n.leads.length + (n.leads.length === 1 ? ' lead' : ' leads'));
+    return { parts: parts, count: n.lists.length + n.leads.length, notes: !!$('notify-notes').value.trim() };
+  }
+
+  var actions = {
+    edit: function () { set({ mode: 'editing' }); },
+    'cancel-edit': function () { loadVersion(); set({ mode: 'viewing', menu: false }); },
+    'toggle-menu': function () { set({ menu: !S.menu }); },
+    'close-menu': function () { set({ menu: false }); },
+    'quick-save': function () { stale() ? set({ menu: false, confirm: 'quick' }) : quickSave(); },
+    'save-notify-open': function () { stale() ? set({ menu: false, confirm: 'notify' }) : openNotify(); },
+    'confirm-cancel': function () { set({ confirm: null }); },
+    'confirm-overwrite': function () { S.confirm === 'notify' ? openNotify() : quickSave(); },
+    'close-notify': function () { set({ notify: null }); },
+    'save-notify': function () {
+      var s = notifySummary();
+      commitSave('Details saved' + (s.notes ? ' with notes' : '') + '. ' + (s.count ? 'Notified ' + s.parts.join(' and ') + '.' : 'No one was notified.'));
+    },
+    'all-lists': function () { S.notify.lists = S.notify.lists.length === LISTS.length ? [] : LISTS.slice(); render(); },
+    'all-leads': function () { S.notify.leads = S.notify.leads.length === LEADS.length ? [] : LEADS.map(function (l) { return l[0]; }); render(); },
+    refresh: refresh,
+    dismiss: function () { set({ banner: 'dismissed' }); },
+    simulate: function () {
+      S.version = 'old'; loadVersion();
+      set({ banner: 'hidden', confirm: null, notify: null, menu: false });
+      later('sim', function () { set({ banner: 'shown' }); }, 400);
+    }
+  };
+
+  document.addEventListener('click', function (e) {
+    var modeBtn = e.target.closest('[data-mode]');
+    if (modeBtn) { if (modeBtn.dataset.mode !== S.mode) { loadVersion(); set({ mode: modeBtn.dataset.mode, menu: false }); } return; }
+    var list = e.target.closest('[data-list]');
+    if (list) { S.notify.lists = toggle(S.notify.lists, LISTS[+list.dataset.list]); render(); return; }
+    var scrim = e.target.matches('[data-scrim]') ? e.target : null;
+    if (scrim) { set(scrim.dataset.scrim === 'confirm' ? { confirm: null } : { notify: null }); return; }
+    var a = e.target.closest('[data-action]');
+    if (a && actions[a.dataset.action]) { if (a.tagName === 'A') e.preventDefault(); actions[a.dataset.action](); }
+  });
+  document.addEventListener('change', function (e) {
+    if (e.target.matches('[data-lead]')) { S.notify.leads = toggle(S.notify.leads, LEADS[+e.target.dataset.lead][0]); render(); }
+  });
+  $('notify-notes').addEventListener('input', render);
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    if (S.confirm) set({ confirm: null }); else if (S.notify) set({ notify: null }); else if (S.menu) set({ menu: false });
+  });
+
+  function render() {
+    var editing = S.mode === 'editing';
+    document.querySelectorAll('[data-mode]').forEach(function (b) { b.classList.toggle('pa-switcher__btn--active', b.dataset.mode === S.mode); b.setAttribute('aria-pressed', b.dataset.mode === S.mode); });
+
+    $('btn-edit').hidden = editing;
+    $('edit-actions').hidden = !editing;
+    $('save-menu').hidden = $('menu-scrim').hidden = !S.menu;
+    $('btn-save').setAttribute('aria-expanded', S.menu);
+    document.querySelectorAll('[data-field]').forEach(function (f) { f.disabled = !editing; });
+
+    var b = $('banner');
+    b.hidden = S.banner !== 'shown';
+    b.classList.toggle('banner--warn', editing);
+    $('banner-icon').dataset.icon = editing ? 'alert-outline' : 'update';
+    $('banner-sub').hidden = !editing;
+    $('btn-refresh').className = 'pa-btn ' + (editing ? 'pa-btn--danger' : 'pa-btn--primary');
+    $('btn-refresh-label').textContent = editing ? 'DISCARD & REFRESH' : 'REFRESH';
+
+    document.querySelectorAll('[data-hl]').forEach(function (h) { h.classList.toggle('hl--on', S.hl); });
+
+    $('toast').hidden = !S.toast;
+    if (S.toast) $('toast-msg').textContent = S.toast;
+
+    $('confirm').hidden = !S.confirm;
+
+    $('notify').hidden = !S.notify;
+    if (S.notify) {
+      var n = S.notify;
+      $('dist-lists').innerHTML = LISTS.map(function (l, i) {
+        var on = n.lists.indexOf(l) > -1;
+        return '<button class="pa-chip' + (on ? ' pa-chip--selected' : '') + '" data-list="' + i + '" aria-pressed="' + on + '"><i class="ic" data-icon="' + (on ? 'check' : 'plus') + '"></i><span>' + l.replace('&', '&amp;') + '</span></button>';
+      }).join('');
+      $('notify-leads').innerHTML = LEADS.map(function (l, i) {
+        var on = n.leads.indexOf(l[0]) > -1;
+        return '<label class="vsel lead"><input type="checkbox" data-lead="' + i + '"' + (on ? ' checked' : '') + '><span class="vsel__box"><i class="ic" data-icon="' + (on ? 'checkbox-marked' : 'checkbox-blank-outline') + '"></i></span><span class="vsel__label lead__label"><span>' + l[0] + '</span><span class="pa-helper">' + l[1] + '</span></span></label>';
+      }).join('');
+      $('all-lists').textContent = n.lists.length === LISTS.length ? 'Clear lists' : 'Select all lists';
+      $('all-leads').textContent = n.leads.length === LEADS.length ? 'Clear leads' : 'Select all leads';
+      var s = notifySummary();
+      $('recipients').textContent = (s.notes ? 'Notes saved to change log' : 'No notes') + ' · ' + (s.count ? s.parts.join(' and ') + ' will be notified' : 'no one will be notified');
+      $('notify-btn-label').textContent = s.count ? 'SAVE & NOTIFY' : 'SAVE';
+      $('notify-btn-icon').dataset.icon = s.count ? 'send-outline' : 'content-save-outline';
+    }
+    hydrate(document);
+  }
+
+  loadVersion();
+  render();
+})();
+</script>
+</body>
+</html>
